@@ -47,7 +47,7 @@ function MainTable() {
           onClick={() =>
             window.open(
               "/secondary",
-              "Secondary table",
+              "",
               "width=1000,height=700,left=500,top=200"
             )
           }
@@ -58,11 +58,7 @@ function MainTable() {
       ) : (
         <TableCell
           onClick={() =>
-            window.open(
-              "/secondary",
-              "Secondary table",
-              "width=1000,height=700,top=200"
-            )
+            window.open("/secondary", "", "width=1000,height=700,top=200")
           }
           style={style}
         >
@@ -85,8 +81,8 @@ function MainTable() {
   return (
     <>
       <Table aria-label="spanning table">
-        <TableHead>
-          <TableContainer align="center">
+        <TableHead align="center">
+          <TableContainer>
             <TableRow>
               <TableCell rowSpan={2} colSpan={1} align="left">
                 Regions

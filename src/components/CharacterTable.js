@@ -18,7 +18,12 @@ const CharacterTable = () => {
 
   const addnewData = (e) => {
     e.preventDefault();
-    setInfromation([...information, { value, date, user, comment }]);
+    if (value) {
+      setInfromation([...information, { value, date, user, comment }]);
+      setValue("");
+      setUser("Andrew");
+      setComment("");
+    }
   };
 
   const addInfoToState = (e, type) => {
@@ -86,10 +91,21 @@ const CharacterTable = () => {
               );
             })}
             <TableRow>
-              <TableCell align="center">
+              <TableCell align="center" style={{ position: "relative" }}>
+                <label
+                  htmlFor="value"
+                  style={{
+                    position: "absolute",
+                    top: "0px",
+                    fontSize: "11px",
+                  }}
+                >
+                  required
+                </label>
                 <input
                   style={styleforInputs}
                   type="number"
+                  name="value"
                   value={value}
                   onChange={(e) => addInfoToState(e, "value")}
                 />
