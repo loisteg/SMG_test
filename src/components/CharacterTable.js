@@ -3,14 +3,13 @@ import { useState } from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Button from "@mui/material/Button";
 
-// Компонент для рендера второй таблицы, которая должна открыться в попапе
+// Component for rendering the second table, which should open in the popup
 
-const CharacterTable = () => {
+function CharacterTable({ setNewValue }) {
   const getTodayDate = () => {
     const date = new Date();
     return `${date.getDate()}.${date.getMonth() + 1}.${+date.getFullYear()}`;
@@ -20,6 +19,7 @@ const CharacterTable = () => {
     e.preventDefault();
     if (value) {
       setInfromation([...information, { value, date, user, comment }]);
+      setNewValue(value);
       setValue("");
       setUser("Andrew");
       setComment("");
@@ -70,88 +70,88 @@ const CharacterTable = () => {
   return (
     <>
       <Table>
-        <TableContainer align="center">
-          <TableHead>
-            <TableRow>
-              <TableCell align="center">value</TableCell>
-              <TableCell align="center">date</TableCell>
-              <TableCell align="center">user</TableCell>
-              <TableCell align="center">comment</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {information.map((item) => {
-              return (
-                <TableRow align="center">
-                  <TableCell align="center">{item.value}</TableCell>
-                  <TableCell align="center">{item.date}</TableCell>
-                  <TableCell align="center">{item.user}</TableCell>
-                  <TableCell align="center">{item.comment}</TableCell>
-                </TableRow>
-              );
-            })}
-            <TableRow>
-              <TableCell align="center" style={{ position: "relative" }}>
-                <label
-                  htmlFor="value"
-                  style={{
-                    position: "absolute",
-                    top: "0px",
-                    fontSize: "11px",
-                  }}
-                >
-                  required
-                </label>
-                <input
-                  style={styleforInputs}
-                  type="number"
-                  name="value"
-                  value={value}
-                  onChange={(e) => addInfoToState(e, "value")}
-                />
-              </TableCell>
-              <TableCell align="center">
-                <input style={styleforInputs} placeholder={date} disabled />
-              </TableCell>
-              <TableCell align="center">
-                <select
-                  name="select"
-                  value={user}
-                  onChange={(e) => addInfoToState(e, "user")}
-                >
-                  <option value="Andrew">Andrew</option>
-                  <option value="Mirek">Mirek</option>
-                  <option value="Foxy">Foxy</option>
-                </select>
-              </TableCell>
-              <TableCell align="center">
-                <input
-                  style={styleforInputs}
-                  type="text"
-                  value={comment}
-                  onChange={(e) => addInfoToState(e, "comment")}
-                />
-              </TableCell>
-              <Button
-                sx={{ m: "7px 0 0 15px" }}
-                variant="contained"
-                onClick={(e) => addnewData(e)}
+        <TableHead>
+          <TableRow>
+            <TableCell align="center">value</TableCell>
+            <TableCell align="center">date</TableCell>
+            <TableCell align="center">user</TableCell>
+            <TableCell align="center">comment</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {information.map((item, i) => {
+            return (
+              <TableRow align="center" key={i}>
+                <TableCell align="center">{item.value}</TableCell>
+                <TableCell align="center">{item.date}</TableCell>
+                <TableCell align="center">{item.user}</TableCell>
+                <TableCell align="center">{item.comment}</TableCell>
+              </TableRow>
+            );
+          })}
+          <TableRow>
+            <TableCell align="center" style={{ position: "relative" }}>
+              <label
+                htmlFor="value"
+                style={{
+                  position: "absolute",
+                  top: "0px",
+                  fontSize: "11px",
+                }}
               >
-                Add
-              </Button>
-            </TableRow>
-          </TableBody>
-          <Button
-            sx={{ m: "25px" }}
-            variant="contained"
-            onClick={() => window.close()}
-          >
-            Close
-          </Button>
-        </TableContainer>
+                required
+              </label>
+              <input
+                style={styleforInputs}
+                type="number"
+                name="value"
+                value={value}
+                onChange={(e) => addInfoToState(e, "value")}
+              />
+            </TableCell>
+            <TableCell align="center">
+              <input style={styleforInputs} placeholder={date} disabled />
+            </TableCell>
+            <TableCell align="center">
+              <select
+                name="select"
+                value={user}
+                onChange={(e) => addInfoToState(e, "user")}
+              >
+                <option value="Andrew">Andrew</option>
+                <option value="Mirek">Mirek</option>
+                <option value="Foxy">Foxy</option>
+              </select>
+            </TableCell>
+            <TableCell align="center">
+              <input
+                style={styleforInputs}
+                type="text"
+                value={comment}
+                onChange={(e) => addInfoToState(e, "comment")}
+              />
+            </TableCell>
+          </TableRow>
+        </TableBody>
       </Table>
+
+      <Button
+        sx={{ m: "15px 0 0 90%" }}
+        variant="contained"
+        onClick={(e) => addnewData(e)}
+      >
+        Add
+      </Button>
+
+      <Button
+        sx={{ m: "200px 0 0 50%" }}
+        variant="contained"
+        onClick={() => window.close()}
+      >
+        Close
+      </Button>
     </>
   );
-};
+}
 
 export default CharacterTable;
